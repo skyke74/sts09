@@ -1,0 +1,88 @@
+<!DOCCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>lists</title>
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+     
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              인제대학교
+            </a>
+          </div>
+          <ul class="nav navbar-nav">
+		  <li><a href="../" th:href="@{/}">HOME</a></li>
+		  <li><a href="../intro.html" th:href="@{/intro}">intro</a></li>
+		  <li class="active"><a href="./list.html" th:href="@{/dept/}">DEPT</a></li>
+            <li><a href="#">LOGIN</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="contailder">
+        <h2 class="page-header">상세 페이지</h2>
+        <form method="get" action="list.html" th:action="@{/dept/}">
+          <div class="form-group"><input name="deptno" value="1111" th:value="${bean.deptno}" class="form-control" readonly/></div>
+          <div class="form-group"><input name="dname" value="dname" th:value="${bean.dname}" class="form-control" readonly/></div>
+          <div class="form-group"><input name="loc" value="loc" th:value="${bean.loc}" class="form-control" readonly/></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-block btn-primary">수정</button>
+            <button type="reset" class="btn btn-block btn-danger">삭제</button>
+            <button type="button" class="btn btn-block btn-default" onclick="history.back();">뒤로</button>
+          </div>
+          <script type="text/JavaScript">
+            let boo=true;
+			$(function(){
+				$('form button').click(function(e){
+					if($(this).hasClass('btn-danger')){
+					$.ajax({
+						url:location.href,
+						type:'delete',
+						dataType:'json',
+						contentType:'application/json',
+						success:e=>e.result=='success'?location.href='./':null
+					});
+					}
+				});
+              $('form').on('submit',function(e){
+                e.preventDefault();
+				if(boo){
+	                $('.page-header').text('수정 페이지');
+	                $('input').eq(1).removeProp('readonly');
+	                $('input').eq(2).removeProp('readonly');
+	                $('form button').eq(1).removeClass('btn-danger').addClass('btn-default').attr('type','reset').text('취소');
+					boo=!boo;
+				}else{
+					const data=JSON.stringify({
+						'deptno':$('form input').eq(0).val(),
+						'dname':$('form input').eq(1).val(),
+						'loc':$('form input').eq(2).val()
+					})
+					$.ajax({
+						url:location.href,
+						type:'put',
+						data:data,
+						dataType:'json',
+						contentType:'application/json',
+						success:e=>e.result=='success'?location.href='./':null
+					});
+				}
+              });
+            });
+          </script>
+        </form>
+      </div>
+</body>
+</html>

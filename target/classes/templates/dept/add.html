@@ -1,0 +1,47 @@
+<!DOCCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>lists</title>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              인제대학교
+            </a>
+          </div>
+          <ul class="nav navbar-nav">
+		  <li><a href="../" th:href="@{/}">HOME</a></li>
+		  <li><a href="../intro.html" th:href="@{/intro}">intro</a></li>
+		  <li class="active"><a href="./list.html" th:href="@{/dept/}">DEPT</a></li>
+            <li><a href="#">LOGIN</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="contailder">
+        <h2 class="page-header">입력 페이지</h2>
+        <form method="post" action="list.html" th:action="@{/dept/}">
+          <div class="form-group"><input name="dname" placeholder="dname" class="form-control"/></div>
+          <div class="form-group"><input name="loc" placeholder="location" class="form-control"/></div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-block btn-primary">입력</button>
+            <button type="reset" class="btn btn-block btn-default">취소</button>
+            <button type="button" class="btn btn-block btn-default" onclick="history.back();">뒤로</button>
+          </div>
+        </form>
+      </div>
+</body>
+</html>
